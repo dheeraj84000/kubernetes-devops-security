@@ -1,5 +1,10 @@
 pipeline {
   agent any
+environment {
+  imageName= "dheeraj84000/numeric-app"
+  deploymentFileName= "k8s_deployment_service.yaml"
+}
+  
 tools {
 
 maven '3.9.5'
@@ -41,6 +46,16 @@ maven '3.9.5'
         }
         
       }
+    }
+    stage("kubernetes deployment") {
+      steps{
+          withKubeConfig([credentialsId: 'kubeconfig']) {
+      sh 'sed -i s/replace/${imageName}:${GIT_COMMIT}/g ${deploymentFileName}' 
+      sh 'kubectl apply -f ${deploymentFileName}'
+    }
+        
+      }
+      
     }
     }
 }
