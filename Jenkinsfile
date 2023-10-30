@@ -34,7 +34,7 @@ maven '3.9.5'
     stage('docker image build') {
       steps{
 
-           withDockerRegistry(credentialsId: 'docker-hub-cred') {
+           withDockerRegistry(credentialsId: 'docker-hub-cred', url: "") {
             sh "printenv"
             sh 'docker build -t dheeraj84000/numeric-app:"$GIT_COMMIT"'
             sh 'docker push dheeraj84000/numeric-app:"$GIT_COMMIT" '
