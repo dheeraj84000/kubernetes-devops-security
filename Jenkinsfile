@@ -22,7 +22,7 @@ maven '3.9.5'
 
            always {
 
-             junit 'target/surefile-reports/*.xml'
+             junit 'target/surefire-reports/*.xml'
              jacoco execPattern: 'target/jacoco.exec'
              
            }
