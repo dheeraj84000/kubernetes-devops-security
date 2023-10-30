@@ -50,7 +50,7 @@ maven '3.9.5'
     stage("kubernetes deployment") {
       steps{
           withKubeConfig([credentialsId: 'kubeconfig']) {
-      sh 'sed -i s/replace/"${imageName}:${GIT_COMMIT}"/g ${deploymentFileName}' 
+      sh 'sed -i s#replace#"${imageName}:${GIT_COMMIT}"#g ${deploymentFileName}' 
       sh 'kubectl apply -f ${deploymentFileName}'
     }
         
