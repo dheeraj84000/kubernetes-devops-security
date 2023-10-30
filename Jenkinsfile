@@ -18,6 +18,16 @@ maven '3.9.5'
            sh  'mvn test'
          
        }
+       post {
+
+           always {
+
+             junit 'target/surefile-reports/*.xml'
+             jacoco execPattern: 'target/jacoco.exec'
+             
+           }
+         
+       }
 
        
      }
