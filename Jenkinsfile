@@ -43,7 +43,7 @@ maven '3.9.5'
       withSonarQubeEnv('SonarQube'){
         sh "mvn clean verify sonar:sonar -Dsonar.projectKey=devsecops-application -Dsonar.projectName='devsecops-application' -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_105d4174c70aaa432d8eeb74ca718da1d20d4242"
        }
-        timeout(time:2, unit: 'MINUTES'){
+        timeout(time: 4, unit: 'MINUTES'){
 
         script{
                 waitForQualityGate abortPipeline: true
