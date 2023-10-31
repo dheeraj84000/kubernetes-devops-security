@@ -65,6 +65,22 @@ maven '3.9.5'
                // }
             }
         }
+
+       stage("OWASP Dependency Check Running..."){
+
+         steps{
+              sh "mvn dependency-check:check"
+           
+         }
+         post {
+                 always {
+                   dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+                 }
+           
+         }
+
+         
+       }
     
     stage('docker image build') {
       steps{
