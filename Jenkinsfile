@@ -43,18 +43,28 @@ maven '3.9.5'
       withSonarQubeEnv('SonarQube'){
         sh "mvn clean verify sonar:sonar -Dsonar.projectKey=devsecops-application -Dsonar.projectName='devsecops-application' -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_105d4174c70aaa432d8eeb74ca718da1d20d4242"
        }
-        timeout(time: 4, unit: 'MINUTES'){
+      //   timeout(time: 4, unit: 'MINUTES'){
 
-        script{
-                waitForQualityGate abortPipeline: true
+      //   script{
+      //           waitForQualityGate abortPipeline: true
           
-        }
-      }
+      //   }
+      // }
       
       }
       
       
     }
+
+        stage("Quality Gate") {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                    // true = set pipeline to UNSTABLE, false = don't
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
     
     stage('docker image build') {
       steps{
