@@ -66,28 +66,54 @@ maven '3.9.5'
             }
         }
 
-       stage("OWASP Dependency Check Running..."){
+    //    stage("OWASP Dependency Check Running..."){
 
-         steps{
-              sh "mvn dependency-check:check"
+    //      steps{
+    //           sh "mvn dependency-check:check"
            
-         }
-         post {
-                 always {
-                   dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
-                 }
+    //      }
+    //      post {
+    //              always {
+    //                dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+    //              }
            
-         }
+    //      }
 
          
-       }
+    //    }
 
-    stage("trivy base image check..."){
+    // stage("trivy base image check..."){
 
-      steps{
+    //   steps{
          
-        sh "sudo bash Trivy.sh"
-      }
+    //     sh "sudo bash Trivy.sh"
+    //   }
+      
+    // }
+
+    stage("OWASP Dependency and trivy base image check ") {
+
+      steps {
+             parallel(
+               "OWASP Dependency Running..." {
+                sh "mvn dependency-check:check" 
+               },
+
+               "trivy base image Scan..." {
+                 sh "sudo bash Trivy.sh"
+                 
+               }
+            
+               
+             )
+        }
+      post {
+                  always {
+                    dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+                  }
+           
+          }
+ 
       
     }
     
