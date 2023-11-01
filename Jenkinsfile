@@ -86,7 +86,7 @@ maven '3.9.5'
 
       steps{
          
-        
+        sh "sudo bash Trivy.sh"
       }
       
     }
