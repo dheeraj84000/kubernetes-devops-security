@@ -81,6 +81,15 @@ maven '3.9.5'
 
          
        }
+
+    stage("trivy base image check..."){
+
+      steps{
+         
+        
+      }
+      
+    }
     
     stage('docker image build') {
       steps{
