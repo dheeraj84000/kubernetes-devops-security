@@ -91,15 +91,15 @@ maven '3.9.5'
       
     // }
 
-    stage("OWASP Dependency and trivy base image check ") {
+    stage("OWASP Dependency and trivy base image check..."){
 
-      steps {
+      steps{
              parallel(
-               "OWASP Dependency Running..." {
+               "OWASP Dependency Running...": {
                 sh "mvn dependency-check:check" 
                },
 
-               "trivy base image Scan..." {
+               "trivy base image Scan...": {
                  sh "sudo bash Trivy.sh"
                  
                }
